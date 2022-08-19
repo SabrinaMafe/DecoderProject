@@ -13,12 +13,60 @@ import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
-@Data
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "TB_MODULES")
 public class ModuleModel implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    public UUID getModuleId() {
+        return moduleId;
+    }
+
+    public void setModuleId(UUID moduleId) {
+        this.moduleId = moduleId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public CourseModel getCourse() {
+        return course;
+    }
+
+    public void setCourse(CourseModel course) {
+        this.course = course;
+    }
+
+    public Set<LessonModel> getLessons() {
+        return lessons;
+    }
+
+    public void setLessons(Set<LessonModel> lessons) {
+        this.lessons = lessons;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

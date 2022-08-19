@@ -15,12 +15,92 @@ import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
-@Data
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "TB_COURSES")
 public class CourseModel implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    public UUID getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(UUID courseId) {
+        this.courseId = courseId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public LocalDateTime getLastUpdateDate() {
+        return lastUpdateDate;
+    }
+
+    public void setLastUpdateDate(LocalDateTime lastUpdateDate) {
+        this.lastUpdateDate = lastUpdateDate;
+    }
+
+    public CourseStatus getCourseStatus() {
+        return courseStatus;
+    }
+
+    public void setCourseStatus(CourseStatus courseStatus) {
+        this.courseStatus = courseStatus;
+    }
+
+    public CourseLevel getCourseLevel() {
+        return courseLevel;
+    }
+
+    public void setCourseLevel(CourseLevel courseLevel) {
+        this.courseLevel = courseLevel;
+    }
+
+    public UUID getUserInstructor() {
+        return userInstructor;
+    }
+
+    public void setUserInstructor(UUID userInstructor) {
+        this.userInstructor = userInstructor;
+    }
+
+    public Set<ModuleModel> getModules() {
+        return modules;
+    }
+
+    public void setModules(Set<ModuleModel> modules) {
+        this.modules = modules;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
