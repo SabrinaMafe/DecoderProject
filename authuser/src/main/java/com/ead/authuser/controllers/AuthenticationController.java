@@ -44,16 +44,17 @@ public class AuthenticationController {
         userModel.setCreationDate(LocalDateTime.now(ZoneId.of("UTC")));
         userModel.setLastUpdateDate(LocalDateTime.now(ZoneId.of("UTC")));
         userService.save(userModel);
-        log.debug("POST registerUser userModel saved {}", userModel.toString());
+        log.debug("POST registerUser userModel saved {} ", userModel.toString());
+        log.info("User saved successfully UserId {}", userModel.getUserId());
         return ResponseEntity.status(HttpStatus.CREATED).body(userModel);
     }
-//    @GetMapping("/")
-//    public String index(){
-//        log.trace("TRACE"); // quando utiliza esse nivel de visualização de forma mais granular, rastreamento de uma parte do codigo, traz tudo detalhado
-//        log.debug("DEBUG"); // utiliza em ambiente de dev, traz informações do codigo ou processo
-//        log.info("INFO"); // traz informações pra ter o controle do que esta acontecendo no ambiente de prod
-//        log.warn("WARN"); // não é um erro, um alerta, perda de dados secundarios, processos que ocrrem mais de uma vez, conflitos
-//        log.error("ERROR"); // quando da algo errado no processo, detalhando mais sobre o erro, utilizar em blocos de try catch
-//        return "Logging Spring Boot....";
-//    }
+    @GetMapping("/")
+    public String index(){
+        log.trace("TRACE"); // quando utiliza esse nivel de visualização de forma mais granular, rastreamento de uma parte do codigo, traz tudo detalhado
+        log.debug("DEBUG"); // utiliza em ambiente de dev, traz informações do codigo ou processo
+        log.info("INFO"); // traz informações pra ter o controle do que esta acontecendo no ambiente de prod
+        log.warn("WARN"); // não é um erro, um alerta, perda de dados secundarios, processos que ocrrem mais de uma vez, conflitos
+        log.error("ERROR"); // quando da algo errado no processo, detalhando mais sobre o erro, utilizar em blocos de try catch
+        return "Logging Spring Boot....";
+    }
 }
