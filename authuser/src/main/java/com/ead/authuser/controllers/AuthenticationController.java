@@ -7,8 +7,6 @@ import com.ead.authuser.models.UserModel;
 import com.ead.authuser.services.UserService;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.extern.log4j.Log4j2;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,18 +22,21 @@ import java.time.ZoneId;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/auth")
 public class AuthenticationController {
+
     @Autowired
     UserService userService;
 
     @PostMapping("/signup")
     public ResponseEntity<Object> registerUser(@RequestBody @Validated(UserDto.UserView.RegistrationPost.class)
-                                                   @JsonView(UserDto.UserView.RegistrationPost.class) UserDto userDto){
-        log.debug("POST registerUser userDto received {}", userDto.toString());
+                                               @JsonView(UserDto.UserView.RegistrationPost.class) UserDto userDto){
+        log.debug("POST registerUser userDto received {} ", userDto.toString());
         if(userService.existsByUserName(userDto.getUsername())){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: username is already taken!");
+            log.warn("Username {} is Already Taken ", userDto.getUsername());
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Username is Already Taken!");
         }
         if(userService.existsByEmail(userDto.getEmail())){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: email is already taken!");
+            log.warn("Email {} is Already Taken ", userDto.getEmail());
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Email is Already Taken!");
         }
         var userModel = new UserModel();
         BeanUtils.copyProperties(userDto, userModel);
@@ -45,16 +46,17 @@ public class AuthenticationController {
         userModel.setLastUpdateDate(LocalDateTime.now(ZoneId.of("UTC")));
         userService.save(userModel);
         log.debug("POST registerUser userModel saved {} ", userModel.toString());
-        log.info("User saved successfully UserId {}", userModel.getUserId());
-        return ResponseEntity.status(HttpStatus.CREATED).body(userModel);
+        log.info("User saved successfully userId {} ", userModel.getUserId());
+        return  ResponseEntity.status(HttpStatus.CREATED).body(userModel);
     }
+
     @GetMapping("/")
     public String index(){
-        log.trace("TRACE"); // quando utiliza esse nivel de visualização de forma mais granular, rastreamento de uma parte do codigo, traz tudo detalhado
-        log.debug("DEBUG"); // utiliza em ambiente de dev, traz informações do codigo ou processo
-        log.info("INFO"); // traz informações pra ter o controle do que esta acontecendo no ambiente de prod
-        log.warn("WARN"); // não é um erro, um alerta, perda de dados secundarios, processos que ocrrem mais de uma vez, conflitos
-        log.error("ERROR"); // quando da algo errado no processo, detalhando mais sobre o erro, utilizar em blocos de try catch
-        return "Logging Spring Boot....";
+        log.trace("TRACE");
+        log.debug("DEBUG");
+        log.info("INFO");
+        log.warn("WARN");
+        log.error("ERROR");
+        return "Logging Spring Boot...";
     }
 }
