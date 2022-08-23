@@ -138,4 +138,8 @@ public class CourseModel implements Serializable {
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true) // um curso para muitos modulos // fetchtype lazy para carregar só quando precisar
     @Fetch(FetchMode.SUBSELECT)// traz os atributos de curso e depois os campos estrangeiros
     private Set<ModuleModel> modules; // o set nao é ordenado e nao permiti duplicatas
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+    private Set<CourseUserModel> coursesUsers;
 }
