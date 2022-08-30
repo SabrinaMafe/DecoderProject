@@ -36,17 +36,17 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<Page<UserModel>> getAllUsers(SpecificationTemplate.UserSpec spec,
-            @PageableDefault(page = 0, size = 10,
-            sort = "userId", direction = Sort.Direction.ASC)Pageable pageable, @RequestParam(required = false) UUID courseId){
+                                                       @PageableDefault(page = 0, size = 10, sort = "userId", direction = Sort.Direction.ASC) Pageable pageable,
+                                                       @RequestParam(required = false) UUID courseId){
         Page<UserModel> userModelPage = null;
         if(courseId != null){
             userModelPage = userService.findAll(pageable, SpecificationTemplate.userCourseId(courseId).and(spec));
-        } else{
+        } else {
             userModelPage = userService.findAll(pageable, spec);
         }
         if(!userModelPage.isEmpty()){
-            for(UserModel userModel: userModelPage.toList()){
-                userModel.add(linkTo(methodOn(UserController.class).getOneUser(userModel.getUserId())).withSelfRel());
+            for(UserModel user : userModelPage.toList()){
+                user.add(linkTo(methodOn(UserController.class).getOneUser(user.getUserId())).withSelfRel());
             }
         }
         return ResponseEntity.status(HttpStatus.OK).body(userModelPage);
