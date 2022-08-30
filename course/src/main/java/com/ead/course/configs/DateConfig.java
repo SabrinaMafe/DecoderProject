@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Primary;
 
 import java.time.format.DateTimeFormatter;
 
-@Configuration
+//@Configuration
 public class DateConfig {
 
     public static final String DATETIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
@@ -17,9 +17,12 @@ public class DateConfig {
 
     @Bean
     @Primary
-    public ObjectMapper objectMapper(){
+    public ObjectMapper objectMapper() {
         JavaTimeModule module = new JavaTimeModule();
         module.addSerializer(LOCAL_DATETIME_SERIALIZER);
-        return new ObjectMapper().registerModule(module);
+        return new ObjectMapper()
+                .registerModule(module);
     }
+
+
 }
