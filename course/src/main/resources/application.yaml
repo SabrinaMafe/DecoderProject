@@ -22,6 +22,8 @@ spring:
   output:
     ansi:
       enabled: Always
+  rabbitmq:
+    addresses: amqps://pvkzowfr:MlVr8MMxhLPfv5PfGm3PkGAzYv4mK8Lg@shark.rmq.cloudamqp.com/pvkzowfr
 
 
 logging:
