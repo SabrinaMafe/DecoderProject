@@ -17,4 +17,13 @@ public interface CourseRepository extends JpaRepository<CourseModel, UUID>, JpaS
     @Modifying // como é uma alteração e nao consulta preciso anotar dessa forma
     @Query(value = "insert into tb_courses_users values (:courseId, :userId);", nativeQuery = true)
     void saveCourseUser(@Param("courseId") UUID courseId, @Param("userId") UUID userId);
+
+    @Modifying // como é uma alteração e nao consulta preciso anotar dessa forma
+    @Query(value = "delete from tb_courses_users where course_id= :courseId", nativeQuery = true)
+    void deleteCourseUserByCourse(@Param("courseId") UUID courseId);
+
+    @Modifying // como é uma alteração e nao consulta preciso anotar dessa forma
+    @Query(value = "delete from tb_courses_users where user_id= :userId", nativeQuery = true)
+    void deleteCourseUserByUser(@Param("userId") UUID userId);
+
 }
