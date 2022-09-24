@@ -88,7 +88,7 @@ public class CourseController {
         return  ResponseEntity.status(HttpStatus.OK).body(courseService.save(courseModel));
     }
 
-    @PreAuthorize("hasAnyRole('INSTRUCTOR')")
+    @PreAuthorize("hasAnyRole('STUDENT')")
 
     @GetMapping
     public ResponseEntity<Page<CourseModel>> getAllCourses(SpecificationTemplate.CourseSpec spec,
