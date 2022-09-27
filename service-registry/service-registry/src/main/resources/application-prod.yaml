@@ -1,6 +1,5 @@
 server:
   port: ${PORT}
-
 ead:
   serviceRegistry:
     username: ${EUREKA_USERNAME}
