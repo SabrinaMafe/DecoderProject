@@ -5,7 +5,6 @@ ead:
   serviceRegistry:
     username: ${EUREKA_USERNAME}
     password: ${EUREKA_PASSWORD}
-
 eureka:
   client:
     register-with-eureka: false
